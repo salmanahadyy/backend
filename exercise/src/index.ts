@@ -14,8 +14,8 @@ app.get("/api", (req: Request, res: Response) => {
   res.status(200).send("Hello, welcome to my API");
 });
 
-app.use("/api/users", userRouter.getRouter())
+app.use("/api/data", userRouter.getRouter())
 
 app.listen(PORT, () => {
-  console.log(`server running on http://localhost:${PORT}`);
+  console.log(`server running on http://localhost:${PORT}/api`);
 });

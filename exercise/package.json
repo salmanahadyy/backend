@@ -1,5 +1,5 @@
 {
-  "name": "rest-express",
+  "name": "exercise",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/node": "^22.9.0",
@@ -22,6 +21,8 @@
     "cors": "^2.8.5",
     "express": "^4.21.1",
     "ts-node": "^10.9.2",
-    "ts-node-dev": "^2.0.0"
-  }
+    "ts-node-dev": "^2.0.0",
+    "undici-types": "^6.19.8"
+  },
+  "description": ""
 }

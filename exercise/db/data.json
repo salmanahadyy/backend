@@ -1,0 +1,26 @@
+[
+    {
+      "id": "1",
+      "title": "salary",
+      "amount": 5000000,
+      "type": "income",
+      "category": "salary",
+      "date": "2020-11-18"
+    },
+    {
+      "id": "2",
+      "title": "Breakfast",
+      "amount": 15000,
+      "type": "expense",
+      "category": "food",
+      "date": "2024-11-19"
+    },
+    {
+      "id": "3",
+      "title": "go-jek",
+      "amount": 10000,
+      "type": "expense",
+      "category": "transportation",
+      "date": "2024-11-20"
+    }
+  ]
