@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum BlogCategory {
+  sport
+  sains
+  food
+  tech
+}
+
+enum RoleUser {
+  User
+  Admin
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  email        String   @unique
+  password     String
+  avatar       String?
+  role         RoleUser @default(User)
+  loginAttempt Int      @default(0)
+  isSuspend    Boolean  @default(false)
+  isVerify     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updateAt     DateTime @updatedAt
+  blog         Blog[]
+}
+
+model Blog {
+  id        String       @id @default(uuid())
+  title     String       @unique
+  slug      String       @unique
+  category  BlogCategory
+  content   String       @db.Text
+  thumbnail String
+  createdAt DateTime     @default(now())
+  updateAt  DateTime     @updatedAt
+  userId    Int
+  user      User         @relation(fields: [userId], references: [id])
+}

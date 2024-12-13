@@ -1,24 +1,40 @@
 import express, { Application, Request, Response } from "express";
-import cors from "cors"
+import cors from "cors";
 import { UserRouter } from "./routers/user.router";
 import { BlogRouter } from "./routers/blog.router";
+import { AuthRouter } from "./routers/auth.router";
+import cookieParser from "cookie-parser";
+import path from "path";
+// import { PostRouter } from "./routers/post.router";
 
 const PORT: number = 8000;
 
 const app: Application = express();
-app.use(express.json())
-app.use(cors())
+app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+app.use(cookieParser());
 
-app.get("/api",(req:Request,res:Response)=>{
-    res.status(200).send("welcome to my API")
-})
+app.get("/api", (req: Request, res: Response) => {
+  res.status(200).send("welcome to my API");
+});
 
-const userRouter = new UserRouter()
-const blogRouter = new BlogRouter()
+app.use("/api/public", express.static(path.join(__dirname, "../public")));
 
-app.use("/api/users", userRouter.getRouter())
-app.use("/api/blogs", blogRouter.getRouter())
+const userRouter = new UserRouter();
+const blogRouter = new BlogRouter();
+const authRouter = new AuthRouter();
+// const postRouter = new PostRouter()
 
-app.listen(PORT,()=>{
-    console.log(`server running on -> http://localhost:${PORT}/api`)
-})
+app.use("/api/users", userRouter.getRouter());
+app.use("/api/blogs", blogRouter.getRouter());
+app.use("/api/auth", authRouter.getRouter());
+// app.use("/api/posts", postRouter.getRouter())
+
+app.listen(PORT, () => {
+  console.log(`server running on -> http://localhost:${PORT}/api`);
+});

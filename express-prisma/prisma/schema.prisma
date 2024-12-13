@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output = "./generated/client"
 }
 
 datasource db {
@@ -15,15 +16,24 @@ enum BlogCategory {
   tech
 }
 
+enum RoleUser {
+  User
+  Admin
+}
+
 model User {
-  id        Int      @id @default(autoincrement())
-  username  String   @unique
-  email     String   @unique
-  password  String
-  avatar    String?
-  createdAt DateTime @default(now())
-  updateAt  DateTime @updatedAt
-  blog      Blog[]
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  email        String   @unique
+  password     String
+  avatar       String?
+  role         RoleUser @default(User)
+  loginAttempt Int      @default(0)
+  isSuspend    Boolean  @default(false)
+  isVerify     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updateAt     DateTime @updatedAt
+  blog         Blog[]
 }
 
 model Blog {
@@ -31,7 +41,7 @@ model Blog {
   title     String       @unique
   slug      String       @unique
   category  BlogCategory
-  content   Json
+  content   String       @db.Text
   thumbnail String
   createdAt DateTime     @default(now())
   updateAt  DateTime     @updatedAt
